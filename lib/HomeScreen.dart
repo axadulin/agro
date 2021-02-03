@@ -1,12 +1,10 @@
 import 'package:agro/AgronomyMain.dart';
+import 'package:agro/AnimalsFarmMain2.dart';
 import 'package:agro/LoginPage.dart';
+import 'package:agro/models/json/model.dart';
 import 'package:agro/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-import 'AnimalsFarmMain.dart';
-import 'AnimalsFarmMain2.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -19,14 +17,14 @@ GlobalKey<ScaffoldState> _globalKey=GlobalKey<ScaffoldState>();
 
 
   Widget _cardsView(int index) {
-    return
-
-      GestureDetector(
+    return GestureDetector(
       onTap: () {
        selectIndex = index;
        switch (selectIndex){
-         case 0:    Navigator.push(context,
-           MaterialPageRoute(builder: (context) => AgronomyMain()),
+         case 0:
+           Navigator.push(context,
+           MaterialPageRoute(builder: (context) => LoginPage(),
+           settings: RouteSettings(arguments: categoryModel[selectIndex])),
          );
          break;
          case 1: Navigator.push(context,
@@ -38,9 +36,9 @@ GlobalKey<ScaffoldState> _globalKey=GlobalKey<ScaffoldState>();
         // BlocProvider.of<NavigationBloc>(context).add(ResidentsClickedEvent());
       },
       child: Container(
-        height: 150,
+        height: 140,
         width: double.infinity,
-        margin: EdgeInsets.all(15),
+        margin: EdgeInsets.all(12),
         padding: EdgeInsets.all(10),
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -81,12 +79,20 @@ GlobalKey<ScaffoldState> _globalKey=GlobalKey<ScaffoldState>();
     child: return MaterialApp(
 
       home:Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white70,
-      //   title: Text("Drawer app"),
-      // ),
-      drawer: Drawer(
         key: _globalKey,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: ()=>_globalKey.currentState.openDrawer(),
+          icon: Icon(Icons.menu,
+            color: Colors.black,
+        ),),
+        title: Text("Drawer app"),
+      ),
+      drawer: Drawer(
+
         elevation: 16.0,
         child: Column(
           children: [
@@ -166,5 +172,11 @@ GlobalKey<ScaffoldState> _globalKey=GlobalKey<ScaffoldState>();
 
       ),
     );
+
   }
+// getItemAndNavigate(String item, BuildContext context){
+//   Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//           builder: (context) => SecondScreen(itemHolder : item)));}
 }
